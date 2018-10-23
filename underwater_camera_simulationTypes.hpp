@@ -26,9 +26,10 @@ namespace underwater_camera_simulation {
     struct OceanParameters
     {
         OceanParameters() 
-            : surfDirty(true)
-              , surfEndless(true)
-              , surfWaveScale(1e-7)
+            : surfEndless(true)
+              , surfWaveScale(10)
+              , surfWaveTopColor(49, 83, 94)
+              , surfWaveBottomColor(29, 56, 91)
               , surfDepth(1000)
               , surfWindDirection(1, 2)
               , surfWindSpeed(3.0)
@@ -39,13 +40,13 @@ namespace underwater_camera_simulation {
               , surfCrestFoamHeight(2.2)
               , surfFoamBottomHeight(2.2)
               , surfFoamTopHeight(2.2)
-              , sceneDirty(true)
               , airFogColor(199, 226, 255)
-              , airFogDensity(0.012)
+              , airFogDensity(12)
               , sunPosition(326, 1212, 1275)
               , sunDiffuseColor(191, 191, 191)
+              , sunColor(105, 138, 174)
               , uwFogColor(27, 57, 109)
-              , uwFogDensity(0.02)
+              , uwFogDensity(20)
               , uwAttenuation(0.015, 0.0075, 0.005)
               , uwDiffuseColor(27, 57, 109)
               , glareAttenuation(0.8)
@@ -62,9 +63,10 @@ namespace underwater_camera_simulation {
         }
 
         /// Ocean surface parameters
-        bool      surfDirty;
         bool      surfEndless;
         float     surfWaveScale;
+        base::Vector3d    surfWaveTopColor;
+        base::Vector3d    surfWaveBottomColor;
         float     surfDepth;
         base::Vector2d surfWindDirection;
         float     surfWindSpeed;
@@ -77,15 +79,15 @@ namespace underwater_camera_simulation {
         float     surfFoamTopHeight;
 
         /// Ocean scene parameters
-        bool      sceneDirty;
         base::Vector3d    airFogColor;
         float     airFogDensity;
         base::Vector3d sunPosition;
-        base::Vector3d sunDiffuseColor;
-        base::Vector3d uwFogColor;
+        base::Vector3d    sunDiffuseColor;
+        base::Vector3d    sunColor;
+        base::Vector3d    uwFogColor;
         float     uwFogDensity;
         base::Vector3d uwAttenuation;
-        base::Vector3d uwDiffuseColor;
+        base::Vector3d    uwDiffuseColor;
         float     glareAttenuation;
         bool      reflections;
         bool      refractions;

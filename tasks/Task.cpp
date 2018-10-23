@@ -101,9 +101,10 @@ vizkit3d::OceanParameters Task::mapOceanParameters(const OceanParameters& ocean_
 {
     vizkit3d::OceanParameters viz_ocean_params;
 
-    viz_ocean_params.surfDirty = ocean_params.surfDirty;
     viz_ocean_params.surfEndless = ocean_params.surfEndless;
     viz_ocean_params.surfWaveScale = ocean_params.surfWaveScale;
+    viz_ocean_params.surfWaveTopColor = vector3DToQColor(ocean_params.surfWaveTopColor);
+    viz_ocean_params.surfWaveBottomColor = vector3DToQColor(ocean_params.surfWaveBottomColor);
     viz_ocean_params.surfDepth = ocean_params.surfDepth;
     viz_ocean_params.surfWindDirection = vector2DToQVector2D(ocean_params.surfWindDirection);
     viz_ocean_params.surfWindSpeed = ocean_params.surfWindSpeed;
@@ -115,11 +116,11 @@ vizkit3d::OceanParameters Task::mapOceanParameters(const OceanParameters& ocean_
     viz_ocean_params.surfFoamBottomHeight = ocean_params.surfFoamBottomHeight;
     viz_ocean_params.surfFoamTopHeight = ocean_params.surfFoamTopHeight;
 
-    viz_ocean_params.sceneDirty = ocean_params.sceneDirty;
     viz_ocean_params.airFogColor = vector3DToQColor(ocean_params.airFogColor);
     viz_ocean_params.airFogDensity = ocean_params.airFogDensity;
     viz_ocean_params.sunPosition = vector3DToQVector3D(ocean_params.sunPosition); 
     viz_ocean_params.sunDiffuseColor = vector3DToQColor(ocean_params.sunDiffuseColor);
+    viz_ocean_params.sunColor = vector3DToQColor(ocean_params.sunColor);
     viz_ocean_params.uwFogColor = vector3DToQColor(ocean_params.uwFogColor);
     viz_ocean_params.uwFogDensity = ocean_params.uwFogDensity;
     viz_ocean_params.uwAttenuation = vector3DToQVector3D(ocean_params.uwAttenuation);
