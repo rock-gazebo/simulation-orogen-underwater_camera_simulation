@@ -9,7 +9,7 @@
  */
 
 #include <string>
-#include <base/Types.hpp> 
+#include <base/Eigen.hpp>
 
 namespace underwater_camera_simulation {
 
