@@ -70,7 +70,7 @@ void Task::updateHook()
         vizkit3dWorld->setCameraPose(cameraPose);
 
     //grab the frame
-    std::auto_ptr<Frame> frame(new Frame());
+    std::unique_ptr<Frame> frame(new Frame());
     vizkit3dWorld->grabFrame(*frame.get());
     frame->time = cameraPose.time;
     _frame.write(RTT::extras::ReadOnlyPointer<Frame>(frame.release()));
