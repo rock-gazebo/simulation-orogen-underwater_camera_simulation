@@ -40,6 +40,8 @@ namespace underwater_camera_simulation {
               , surfCrestFoamHeight(2.2)
               , surfFoamBottomHeight(2.2)
               , surfFoamTopHeight(2.2)
+              , surfHeight(0)
+
               , airFogColor(199, 226, 255)
               , airFogDensity(12)
               , sunPosition(326, 1212, 1275)
@@ -50,6 +52,7 @@ namespace underwater_camera_simulation {
               , uwAttenuation(0.015, 0.0075, 0.005)
               , uwDiffuseColor(27, 57, 109)
               , glareAttenuation(0.8)
+
               , reflections(true)
               , refractions(false)
               , heightmap(true)
@@ -77,6 +80,7 @@ namespace underwater_camera_simulation {
         float     surfCrestFoamHeight;
         float     surfFoamBottomHeight;
         float     surfFoamTopHeight;
+        float     surfHeight;
 
         /// Ocean scene parameters
         base::Vector3d    airFogColor;

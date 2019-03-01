@@ -115,6 +115,7 @@ vizkit3d::OceanParameters Task::mapOceanParameters(const OceanParameters& ocean_
     viz_ocean_params.surfCrestFoamHeight = ocean_params.surfCrestFoamHeight;
     viz_ocean_params.surfFoamBottomHeight = ocean_params.surfFoamBottomHeight;
     viz_ocean_params.surfFoamTopHeight = ocean_params.surfFoamTopHeight;
+    viz_ocean_params.surfHeight = ocean_params.surfHeight;
 
     viz_ocean_params.airFogColor = vector3DToQColor(ocean_params.airFogColor);
     viz_ocean_params.airFogDensity = ocean_params.airFogDensity;
