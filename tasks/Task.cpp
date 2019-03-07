@@ -73,6 +73,8 @@ void Task::updateHook()
     std::unique_ptr<Frame> frame(new Frame());
     vizkit3dWorld->grabFrame(*frame.get());
     frame->time = cameraPose.time;
+    frame->setStatus(base::samples::frame::STATUS_VALID);
+    frame->setFrameMode(base::samples::frame::MODE_RGB);
     _frame.write(RTT::extras::ReadOnlyPointer<Frame>(frame.release()));
 }
 
@@ -115,6 +117,7 @@ vizkit3d::OceanParameters Task::mapOceanParameters(const OceanParameters& ocean_
     viz_ocean_params.surfCrestFoamHeight = ocean_params.surfCrestFoamHeight;
     viz_ocean_params.surfFoamBottomHeight = ocean_params.surfFoamBottomHeight;
     viz_ocean_params.surfFoamTopHeight = ocean_params.surfFoamTopHeight;
+    viz_ocean_params.surfHeight = ocean_params.surfHeight;
 
     viz_ocean_params.airFogColor = vector3DToQColor(ocean_params.airFogColor);
     viz_ocean_params.airFogDensity = ocean_params.airFogDensity;
