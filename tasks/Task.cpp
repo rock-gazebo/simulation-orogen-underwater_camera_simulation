@@ -76,8 +76,6 @@ void Task::updateHook()
     std::unique_ptr<Frame> frame(new Frame());
     vizkit3dWorld->grabFrame(*frame.get());
     frame->time = cameraPose.time;
-    frame->setStatus(base::samples::frame::STATUS_VALID);
-    frame->setFrameMode(base::samples::frame::MODE_RGB);
     _frame.write(RTT::extras::ReadOnlyPointer<Frame>(frame.release()));
 }
 
