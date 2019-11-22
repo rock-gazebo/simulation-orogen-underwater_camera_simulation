@@ -69,8 +69,10 @@ void Task::updateHook()
     if (flow == RTT::NoData)
         return;
 
-    if (flow == RTT::NewData)
-        vizkit3dWorld->setCameraPose(cameraPose);
+    if (flow != RTT::NewData)
+        return;
+
+    vizkit3dWorld->setCameraPose(cameraPose);
 
     //grab the frame
     std::unique_ptr<Frame> frame(new Frame());
