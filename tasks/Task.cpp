@@ -36,8 +36,11 @@ bool Task::configureHook()
     vizkit3d::OceanParameters ocean_params = mapOceanParameters(_ocean_params.get());
     oceanEnvPlugin = new vizkit3d::Ocean(ocean_params);
 
-    vizkit3dWorld->getWidget()->addPlugin(oceanEnvPlugin);
-    vizkit3dWorld->getWidget()->setEnvironmentPlugin(oceanEnvPlugin);
+    auto widget = vizkit3dWorld->getWidget();
+    widget->getView(0)->getCamera()->
+        setComputeNearFarMode(osg::CullSettings::COMPUTE_NEAR_FAR_USING_BOUNDING_VOLUMES);
+    widget->addPlugin(oceanEnvPlugin);
+    widget->setEnvironmentPlugin(oceanEnvPlugin);
 
     vizkit3dWorld->setCameraParams(_width.get(),
                                    _height.get(),
@@ -66,8 +69,10 @@ void Task::updateHook()
     if (flow == RTT::NoData)
         return;
 
-    if (flow == RTT::NewData)
-        vizkit3dWorld->setCameraPose(cameraPose);
+    if (flow != RTT::NewData)
+        return;
+
+    vizkit3dWorld->setCameraPose(cameraPose);
 
     //grab the frame
     std::unique_ptr<Frame> frame(new Frame());
