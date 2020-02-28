@@ -9,11 +9,9 @@ using_task_library "vizkit3d_world"
 import_types_from "base"
 import_types_from "underwater_camera_simulationTypes.hpp"
 
-task_context "Task" do
-    subclasses "vizkit3d_world::Task"
+task_context "Task", subclasses: 'vizkit3d_world::Task' do
     needs_configuration
 
-    #
     # enable camera manipulator
     # only work if showGui property is true
     #

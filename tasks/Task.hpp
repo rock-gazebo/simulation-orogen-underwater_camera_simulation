@@ -9,11 +9,11 @@
 
 namespace underwater_camera_simulation {
 
-    /*! \class Task 
+    /*! \class Task
      * \brief The task context provides and requires services. It uses an ExecutionEngine to perform its functions.
      * Essential interfaces are operations, data flow ports and properties. These interfaces have been defined using the oroGen specification.
      * In order to modify the interfaces you should (re)use oroGen and rely on the associated workflow.
-     * 
+     *
      * \details
      * The name of a TaskContext is primarily defined via:
      \verbatim
@@ -21,7 +21,7 @@ namespace underwater_camera_simulation {
          task('custom_task_name','underwater_camera_simulation::Task')
      end
      \endverbatim
-     *  It can be dynamically adapted when the deployment is called with a prefix argument. 
+     *  It can be dynamically adapted when the deployment is called with a prefix argument.
      */
     class Task : public TaskBase
     {
@@ -32,6 +32,7 @@ namespace underwater_camera_simulation {
          */
         vizkit3d::Ocean *oceanEnvPlugin;
 
+        void configureUI();
         vizkit3d::OceanParameters mapOceanParameters(const OceanParameters& ocean_params) const;
         QColor vector3DToQColor(const base::Vector3d& vector) const;
         QVector3D vector3DToQVector3D(const base::Vector3d& vector) const;
@@ -44,10 +45,10 @@ namespace underwater_camera_simulation {
          */
         Task(std::string const& name = "underwater_camera_simulation::Task");
 
-        /** TaskContext constructor for Task 
-         * \param name Name of the task. This name needs to be unique to make it identifiable for nameservices. 
-         * \param engine The RTT Execution engine to be used for this task, which serialises the execution of all commands, programs, state machines and incoming events for a task. 
-         * 
+        /** TaskContext constructor for Task
+         * \param name Name of the task. This name needs to be unique to make it identifiable for nameservices.
+         * \param engine The RTT Execution engine to be used for this task, which serialises the execution of all commands, programs, state machines and incoming events for a task.
+         *
          */
         Task(std::string const& name, RTT::ExecutionEngine* engine);
 
@@ -77,6 +78,7 @@ namespace underwater_camera_simulation {
          * will be called.
          */
         bool startHook();
+        void startUI();
 
         /** This hook is called by Orocos when the component is in the Running
          * state, at each activity step. Here, the activity gives the "ticks"
@@ -84,7 +86,7 @@ namespace underwater_camera_simulation {
          *
          * The error(), exception() and fatal() calls, when called in this hook,
          * allow to get into the associated RunTimeError, Exception and
-         * FatalError states. 
+         * FatalError states.
          *
          * In the first case, updateHook() is still called, and recover() allows
          * you to go back into the Running state.  In the second case, the
@@ -93,6 +95,7 @@ namespace underwater_camera_simulation {
          * it again. Finally, FatalError cannot be recovered.
          */
         void updateHook();
+        void updateUI();
 
         /** This hook is called by Orocos when the component is in the
          * RunTimeError state, at each activity step. See the discussion in
@@ -106,12 +109,14 @@ namespace underwater_camera_simulation {
          * from Running to Stopped after stop() has been called.
          */
         void stopHook();
+        void stopUI();
 
         /** This hook is called by Orocos when the state machine transitions
          * from Stopped to PreOperational, requiring the call to configureHook()
          * before calling start() again.
          */
         void cleanupHook();
+        void cleanupUI();
     };
 }
 
