@@ -25,14 +25,17 @@ Task::~Task()
 
 bool Task::configureHook()
 {
-    /**
-     * Apply the camera parameters
-     */
-    underwater_camera_simulation::CameraParams params = _camera_params.get();
-
-    if (! TaskBase::configureHook())
+    if (! TaskBase::configureHook()) {
         return false;
+    }
 
+    return true;
+}
+
+void Task::configureUI() {
+    TaskBase::configureUI();
+
+    underwater_camera_simulation::CameraParams params = _camera_params.get();
     vizkit3d::OceanParameters ocean_params = mapOceanParameters(_ocean_params.get());
     oceanEnvPlugin = new vizkit3d::Ocean(ocean_params);
 
@@ -47,30 +50,33 @@ bool Task::configureHook()
                                    params.horizontal_fov,
                                    params.near,
                                    params.far);
-
-    return true;
 }
 
-bool Task::startHook()
-{
-    if (! TaskBase::startHook())
+bool Task::startHook() {
+    if (! TaskBase::startHook()) {
         return false;
-
-
-    vizkit3dWorld->enableGrabbing();
+    }
     return true;
 }
+
+void Task::startUI() {
+    TaskBase::startUI();
+    vizkit3dWorld->enableGrabbing();
+}
+
 void Task::updateHook()
 {
     TaskBase::updateHook();
+}
+
+void Task::updateUI() {
+    TaskBase::updateUI();
 
     base::samples::RigidBodyState cameraPose;
     RTT::FlowStatus flow = _camera_pose.readNewest(cameraPose);
-    if (flow == RTT::NoData)
+    if (flow != RTT::NewData) {
         return;
-
-    if (flow != RTT::NewData)
-        return;
+    }
 
     vizkit3dWorld->setCameraPose(cameraPose);
 
@@ -87,10 +93,18 @@ void Task::errorHook()
 }
 void Task::stopHook()
 {
-    vizkit3dWorld->disableGrabbing();
     TaskBase::stopHook();
 }
+void Task::stopUI()
+{
+    vizkit3dWorld->disableGrabbing();
+    TaskBase::stopUI();
+}
 void Task::cleanupHook()
+{
+    TaskBase::cleanupHook();
+}
+void Task::cleanupUI()
 {
     //remove ocean plugin from memory
     if (oceanEnvPlugin){
@@ -99,10 +113,10 @@ void Task::cleanupHook()
         oceanEnvPlugin = NULL;
     }
 
-    TaskBase::cleanupHook();
+    TaskBase::cleanupUI();
 }
 
-vizkit3d::OceanParameters Task::mapOceanParameters(const OceanParameters& ocean_params) const 
+vizkit3d::OceanParameters Task::mapOceanParameters(const OceanParameters& ocean_params) const
 {
     vizkit3d::OceanParameters viz_ocean_params;
 
@@ -124,7 +138,7 @@ vizkit3d::OceanParameters Task::mapOceanParameters(const OceanParameters& ocean_
 
     viz_ocean_params.airFogColor = vector3DToQColor(ocean_params.airFogColor);
     viz_ocean_params.airFogDensity = ocean_params.airFogDensity;
-    viz_ocean_params.sunPosition = vector3DToQVector3D(ocean_params.sunPosition); 
+    viz_ocean_params.sunPosition = vector3DToQVector3D(ocean_params.sunPosition);
     viz_ocean_params.sunDiffuseColor = vector3DToQColor(ocean_params.sunDiffuseColor);
     viz_ocean_params.sunColor = vector3DToQColor(ocean_params.sunColor);
     viz_ocean_params.uwFogColor = vector3DToQColor(ocean_params.uwFogColor);
@@ -142,7 +156,7 @@ vizkit3d::OceanParameters Task::mapOceanParameters(const OceanParameters& ocean_
     viz_ocean_params.underwaterScattering = ocean_params.underwaterScattering;
     viz_ocean_params.distortion = ocean_params.distortion;
     viz_ocean_params.glare = ocean_params.glare;
-    
+
     return viz_ocean_params;
 }
 
